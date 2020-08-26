@@ -1,0 +1,54 @@
+<?php
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = Finder::create()
+                ->in(
+                    [
+                        __DIR__.'/src',
+                        __DIR__.'/tests',
+                    ]
+                );
+
+return Config::create()
+             ->setRiskyAllowed(true)
+             ->setRules(
+                 [
+                     '@PHP73Migration'                               => true,
+                     '@PHP71Migration:risky'                         => true,
+                     '@DoctrineAnnotation'                           => true,
+                     '@PhpCsFixer'                                   => true,
+                     '@PhpCsFixer:risky'                             => true,
+                     '@PHPUnit75Migration:risky'                     => true,
+                     'array_syntax'                                  => ['syntax' => 'short'],
+                     'list_syntax'                                   => ['syntax' => 'long'],
+                     'no_extra_blank_lines'                          => [
+                         'break',
+                         'continue',
+                         'extra',
+                         'return',
+                         'throw',
+                         'use',
+                         'parenthesis_brace_block',
+                         'square_brace_block',
+                         'curly_brace_block',
+                     ],
+                     'native_function_invocation'                    => true,
+                     'mb_str_functions'                              => true,
+                     'blank_line_after_opening_tag'                  => false,
+                     'linebreak_after_opening_tag'                   => false,
+                     'php_unit_strict'                               => [
+                         'assertAttributeEquals',
+                         'assertAttributeNotEquals',
+                     ],
+                     'php_unit_test_class_requires_covers'           => false,
+                     'visibility_required'                           => ['property', 'method', 'const'],
+                     'concat_space'                                  => ['spacing' => 'one'],
+                     'no_superfluous_phpdoc_tags'                    => ['allow_mixed' => true],
+                     'php_unit_test_case_static_method_calls'        => ['call_type' => 'self'],
+                     'php_unit_test_annotation'                      => ['style' => 'annotation'],
+                     'phpdoc_to_comment'                             => false,
+                 ]
+             )
+             ->setFinder($finder);

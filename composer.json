@@ -3,15 +3,17 @@
     "description": "A CLI tool to repartition elasticsearch indices",
     "type": "project",
     "require": {
-        "symfony/console": "^5.1",
-        "php-di/php-di": "^6.2",
         "php": ">=7.4",
+        "ext-json": "*",
+        "doctrine/collections": "^1.6",
+        "php-di/php-di": "^6.2",
         "ruflin/elastica": "^6.0",
-        "ext-json": "*"
+        "symfony/console": "^5.1"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^9.3"
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpunit/phpunit": "^9.3",
+        "roave/security-advisories": "dev-master"
     },
     "license": "MIT",
     "authors": [

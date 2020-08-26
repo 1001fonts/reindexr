@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 namespace Basster\Reindexr;
+
 use Basster\Reindexr\Command\ReindexCommand;
 use Symfony\Component\Console\Application;
 
 /**
- * Class Reindexr
- * @package Basster\Reindexr
+ * Class Reindexr.
  */
 final class Reindexr extends Application
 {
