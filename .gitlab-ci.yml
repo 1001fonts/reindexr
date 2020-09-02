@@ -1,0 +1,36 @@
+stages:
+  - build
+  - test
+  - package
+  - deploy
+
+variables:
+  DOCKER_BUILDKIT: 1
+  DOCKER_DRIVER: overlay2
+
+tests:
+  stage: test
+  image: djbasster/dev-yarn-php:7.4
+  before_script:
+    - composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
+  script:
+    - vendor/bin/codecept run unit --coverage --coverage-xml --coverage-html --no-colors --report --xml
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - vendor
+      - .phpunit.result.cache
+
+docker-build:
+  stage: package
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build --label "org.opencontainers.image.commit=$CI_COMMIT_SHORT_SHA" --label "org.opencontainers.image.build_number=$CI_PIPELINE_IID" -t $BUILD_TAG -t $LATEST_TAG .
+    - docker push $BUILD_TAG
+    - docker push $LATEST_TAG
+  only:
+    - main

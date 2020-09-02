@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class IndexCollectionTest.
  *
- * @covers \IndexCollection
+ * @covers \Basster\Reindexr\ElasticSearch\IndexCollection
  *
  * @internal
  */

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class IndexSettingsTest.
  *
- * @covers \IndexSettings
+ * @covers \Basster\Reindexr\ElasticSearch\IndexSettings
  *
  * @internal
  */

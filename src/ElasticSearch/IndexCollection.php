@@ -35,6 +35,11 @@ final class IndexCollection extends ArrayCollection
         return $collection;
     }
 
+    public static function createEmpty(): self
+    {
+        return new self([]);
+    }
+
     /**
      * @throws UnequalMappingsException
      * @throws \JsonException
