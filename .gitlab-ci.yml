@@ -14,12 +14,17 @@ tests:
   before_script:
     - composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
   script:
-    - vendor/bin/codecept run unit --coverage --coverage-xml --coverage-html --no-colors --report --xml
+    -  vendor/bin/phpunit --coverage-text
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - vendor
       - .phpunit.result.cache
+  artifacts:
+    paths:
+      - junit.xml
+    reports:
+      junit: junit.xml
 
 docker-build:
   stage: package
