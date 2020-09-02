@@ -14,7 +14,7 @@ tests:
   before_script:
     - composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
   script:
-    -  vendor/bin/phpunit --coverage-text
+    -  vendor/bin/phpunit --coverage-text  --log-junit junit.xml
   coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   cache:
     key: $CI_COMMIT_REF_SLUG
