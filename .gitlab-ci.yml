@@ -15,6 +15,7 @@ tests:
     - composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
   script:
     -  vendor/bin/phpunit --coverage-text
+  coverage: '^\s*Lines:\s*\d+.\d+\%'
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
