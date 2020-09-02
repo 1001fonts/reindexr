@@ -37,6 +37,7 @@ final class IndexCollection extends ArrayCollection
 
     /**
      * @throws UnequalMappingsException
+     * @throws \JsonException
      */
     public function getMapping(): array
     {
