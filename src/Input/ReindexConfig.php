@@ -18,15 +18,17 @@ final class ReindexConfig
     public string $prefix;
     public PartitionType $from;
     public PartitionType $to;
+    public bool $includeCurrent;
 
     /**
      * ReindexConfig constructor.
      */
-    private function __construct(string $prefix, PartitionType $from, PartitionType $to)
+    private function __construct(string $prefix, PartitionType $from, PartitionType $to, bool $includeCurrent = false)
     {
         $this->prefix = $prefix;
         $this->from = $from;
         $this->to = $to;
+        $this->includeCurrent = $includeCurrent;
     }
 
     public static function createFromInput(InputInterface $input): self
@@ -39,7 +41,8 @@ final class ReindexConfig
         return new self(
             $prefix,
             $from,
-            $to
+            $to,
+            (bool) $input->getOption('include-current')
         );
     }
 

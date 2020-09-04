@@ -10,10 +10,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * @internal
- * @covers \ReindexConfig
+ * @covers \Basster\Reindexr\Input\ReindexConfig
  */
 final class ReindexConfigTest extends TestCase
 {
@@ -68,12 +69,39 @@ final class ReindexConfigTest extends TestCase
         yield 'to daily is invalid' => [(string) PartitionType::DAILY()];
     }
 
+    /**
+     * @test
+     */
+    public function includeCurrentIsFalseByDefault(): void
+    {
+        $input = $this->createInput('daily', 'monthly');
+        $config = ReindexConfig::createFromInput($input);
+        self::assertFalse($config->includeCurrent);
+    }
+
+    /**
+     * @test
+     */
+    public function createConfigWithIncludeCurrent(): void
+    {
+        $input = new ArrayInput([
+            'prefix' => 'foobar',
+            'from' => 'daily',
+            'to' => 'monthly',
+            '--include-current' => true,
+        ], $this->getInputDefinition());
+
+        $config = ReindexConfig::createFromInput($input);
+        self::assertTrue($config->includeCurrent);
+    }
+
     private function getInputDefinition(): InputDefinition
     {
         return new InputDefinition([
             new InputArgument('prefix', InputArgument::REQUIRED),
             new InputArgument('from', InputArgument::REQUIRED),
             new InputArgument('to', InputArgument::REQUIRED),
+            new InputOption('include-current', null, InputOption::VALUE_REQUIRED, 'include current "to" partition', false),
         ]);
     }
 
