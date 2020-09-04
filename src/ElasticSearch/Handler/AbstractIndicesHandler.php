@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Basster\Reindexr\ElasticSearch\Handler;
 
 use Basster\Reindexr\ElasticSearch\Exception\MissingClientException;
+use Basster\Reindexr\ElasticSearch\Exception\MissingConfigException;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
+use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
 
 /**
@@ -14,6 +16,12 @@ abstract class AbstractIndicesHandler implements IndicesHandler
 {
     private ?Client $client = null;
     private ?IndicesHandler $nextHandler = null;
+    private ?ReindexConfig $reindexConfig = null;
+
+    public function setConfig(ReindexConfig $reindexConfig): void
+    {
+        $this->reindexConfig = $reindexConfig;
+    }
 
     public function setNext(IndicesHandler $next): IndicesHandler
     {
@@ -43,5 +51,14 @@ abstract class AbstractIndicesHandler implements IndicesHandler
     public function setClient(Client $client): void
     {
         $this->client = $client;
+    }
+
+    public function getConfig(): ReindexConfig
+    {
+        if (!$this->reindexConfig) {
+            throw new MissingConfigException();
+        }
+
+        return $this->reindexConfig;
     }
 }

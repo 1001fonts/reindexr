@@ -5,11 +5,8 @@ namespace Basster\Reindexr\Command;
 
 use Basster\Reindexr\ElasticSearch\ClientFactory;
 use Basster\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
-use Basster\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
-use Basster\Reindexr\ElasticSearch\Handler\CreateTargetIndexHandler;
-use Basster\Reindexr\ElasticSearch\Handler\ListIndicesHandler;
-use Basster\Reindexr\ElasticSearch\Handler\ReindexHandler;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
+use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,12 +22,20 @@ final class ReindexCommand extends Command
     public const NAME = 'reindex';
 
     private ClientFactory $clientFactory;
+    private array $handlers;
 
-    public function __construct(ClientFactory $clientFactory)
+    /**
+     * ReindexCommand constructor.
+     *
+     * @param AbstractIndicesHandler[] $handlers
+     * @psalm-param array<int, AbstractIndicesHandler> $handlers
+     */
+    public function __construct(ClientFactory $clientFactory, array $handlers)
     {
         parent::__construct();
 
         $this->clientFactory = $clientFactory;
+        $this->handlers = $handlers;
     }
 
     protected function configure(): void
@@ -47,31 +52,29 @@ final class ReindexCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /**
-         * @var AbstractIndicesHandler[] $handlers
-         * @psalm-var array<int,AbstractIndicesHandler>
-         */
-        $handlers = [
-            new ListIndicesHandler(),
-            new CreateTargetIndexHandler(),
-            new ReindexHandler(),
-            new CloseIndicesHandler(),
-        ];
-
         $client = $this->createESClient($input);
+        $config = ReindexConfig::createFromInput($input);
 
-        foreach ($handlers as $index => $handler) {
-            $nextIndex = $index + 1;
+        $chain = null;
+        foreach ($this->handlers as $index => $handler) {
+            if (0 === $index) {
+                $chain = $handler;
+            }
+            $nextIndex = (int) $index + 1;
+            $handler->setConfig($config);
             $handler->setClient($client);
-            if (\array_key_exists($nextIndex, $handlers)) {
-                $handler->setNext($handlers[$nextIndex]);
+            if (\array_key_exists($nextIndex, $this->handlers)) {
+                $handler->setNext($this->handlers[$nextIndex]);
             }
         }
 
-        $chain = $handlers[0];
-        $chain->handle(IndexCollection::createEmpty());
+        if ($chain) {
+            $chain->handle(IndexCollection::createEmpty());
 
-        return 0;
+            return 0;
+        }
+
+        return 1;
     }
 
     private function createESClient(InputInterface $input): Client

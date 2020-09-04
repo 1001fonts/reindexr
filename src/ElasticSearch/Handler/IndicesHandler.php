@@ -5,6 +5,7 @@ namespace Basster\Reindexr\ElasticSearch\Handler;
 
 use Basster\Reindexr\ElasticSearch\Exception\MissingClientException;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
+use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
 
 /**
@@ -20,4 +21,6 @@ interface IndicesHandler
      * @throws MissingClientException
      */
     public function getClient(): Client;
+
+    public function getConfig(): ReindexConfig;
 }
