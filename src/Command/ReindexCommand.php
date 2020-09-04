@@ -12,6 +12,7 @@ use Basster\Reindexr\ElasticSearch\Handler\ReindexHandler;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
 use Elastica\Client;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -36,6 +37,9 @@ final class ReindexCommand extends Command
     {
         $this->setName(self::NAME)
             ->setHelp('Lorem ipsum')
+            ->addArgument('prefix', InputArgument::REQUIRED, 'prefix for indices to manage. May contain wildcards (*)')
+            ->addArgument('from', InputArgument::REQUIRED, 'from which partition type to convert (daily|monthly)')
+            ->addArgument('to', InputArgument::REQUIRED, 'to which partition type to convert (monthly|yearly)')
             ->addOption('server', 's', InputOption::VALUE_REQUIRED, 'elasticsearch host', 'localhost')
             ->addOption('port', 'p', InputOption::VALUE_REQUIRED, 'elasticsearch port', '9200')
         ;
@@ -43,7 +47,10 @@ final class ReindexCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var AbstractIndicesHandler[] $handlers */
+        /**
+         * @var AbstractIndicesHandler[] $handlers
+         * @psalm-var array<int,AbstractIndicesHandler>
+         */
         $handlers = [
             new ListIndicesHandler(),
             new CreateTargetIndexHandler(),
@@ -69,6 +76,9 @@ final class ReindexCommand extends Command
 
     private function createESClient(InputInterface $input): Client
     {
-        return $this->clientFactory->create($input->getOption('server'), (int) $input->getOption('port'));
+        /** @var string $option */
+        $option = $input->getOption('server');
+
+        return $this->clientFactory->create($option, (int) $input->getOption('port'));
     }
 }

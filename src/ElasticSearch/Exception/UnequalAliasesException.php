@@ -6,7 +6,7 @@ namespace Basster\Reindexr\ElasticSearch\Exception;
 /**
  * Class UnequalSettingsException.
  */
-final class UnequalAliasesException extends ElasticsearchException
+final class UnequalAliasesException extends UnequalMetadataException
 {
     public function __construct(string $index, \Throwable $previous = null)
     {

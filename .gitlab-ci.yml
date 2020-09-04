@@ -13,7 +13,7 @@ variables:
 tests:
   stage: test
   image: djbasster/dev-yarn-php:7.4
-  before_script:
+  before_script: &composerInstall
     - composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
   script:
     -  vendor/bin/phpunit --coverage-text  --log-junit junit.xml
@@ -28,6 +28,13 @@ tests:
       - junit.xml
     reports:
       junit: junit.xml
+
+psalm:
+  stage: test
+  image: composer:2
+  before_script: *composerInstall
+  script:
+    - php vendor/bin/psalm.phar
 
 docker-build:
   stage: package
