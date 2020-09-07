@@ -7,17 +7,18 @@ use Basster\Reindexr\ElasticSearch\Exception\NoIndicesFoundException;
 use Basster\Reindexr\ElasticSearch\Exception\UnequalAliasesException;
 use Basster\Reindexr\ElasticSearch\Exception\UnequalMappingsException;
 use Basster\Reindexr\ElasticSearch\Exception\UnequalSettingsException;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\PartitionType;
-use Carbon\Carbon;
-use Carbon\Exceptions\InvalidFormatException;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Elastica\Client;
 use Elastica\Index;
 use Elastica\Response;
 
 /**
  * Class IndexCollection.
+ *
+ * @extends ArrayCollection<string, Index>
+ *
+ * @method self matching(Criteria $criteria)
  */
 final class IndexCollection extends ArrayCollection
 {
@@ -46,6 +47,7 @@ final class IndexCollection extends ArrayCollection
 
     /**
      * @throws UnequalMappingsException
+     * @throws NoIndicesFoundException
      * @throws \JsonException
      */
     public function getMapping(): array
@@ -61,6 +63,9 @@ final class IndexCollection extends ArrayCollection
         return $mapping;
     }
 
+    /**
+     * @throws NoIndicesFoundException
+     */
     public function getSettings(): array
     {
         $settings = IndexSettings::fromElasticaSettings($this->first()->getSettings());
@@ -88,48 +93,30 @@ final class IndexCollection extends ArrayCollection
         return \array_combine($aliases, \array_fill(0, \count($aliases), new \stdClass()));
     }
 
+    /**
+     * @psalm-return Index
+     *
+     * @throws NoIndicesFoundException
+     */
     public function first(): Index
     {
-        if (!$this->count()) {
+        $first = parent::first();
+
+        if (false === $first) {
             throw new NoIndicesFoundException();
         }
 
-        return parent::first();
+        return $first;
     }
 
-    public function filterByConfig(ReindexConfig $config): self
+    /**
+     * @return static
+     * @psalm-return IndexCollection
+     * @psalm-suppress LessSpecificImplementedReturnType
+     */
+    protected function createFrom(array $elements): self
     {
-        $maxDate = Carbon::now();
-        if (false === $config->includeCurrent) {
-            if ($config->to->equals(PartitionType::MONTHLY())) {
-                $maxDate->subMonth();
-                $maxDate->endOfMonth();
-            } elseif ($config->to->equals(PartitionType::YEARLY())) {
-                $maxDate->subYear();
-                $maxDate->endOfYear();
-            }
-        }
-
-        $filter = static function (Index $index, string $indexName) use ($config, $maxDate) {
-            $dateStr = \preg_replace("/{$config->prefix}/", '', $indexName);
-
-            try {
-                if ($config->from->equals(PartitionType::DAILY())) {
-                    $indexDate = Carbon::createFromFormat('Y-m-d', $dateStr);
-                } elseif ($config->from->equals(PartitionType::MONTHLY())) {
-                    $indexDate = Carbon::createFromFormat('Y-m', $dateStr);
-                }
-                if ($indexDate->lessThanOrEqualTo($maxDate)) {
-                    return $index;
-                }
-            } catch (InvalidFormatException $ex) {
-                return null;
-            }
-
-            return null;
-        };
-
-        return new self(\array_filter($this->toArray(), $filter, ARRAY_FILTER_USE_BOTH));
+        return new static($elements);
     }
 
     private function arrayEquals(array $a, array $b): bool
