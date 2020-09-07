@@ -31,6 +31,11 @@ final class ReindexConfig
         $this->includeCurrent = $includeCurrent;
     }
 
+    public static function create(string $prefix, PartitionType $from, PartitionType $to, bool $includeCurrent = false): self
+    {
+        return new self($prefix, $from, $to, $includeCurrent);
+    }
+
     public static function createFromInput(InputInterface $input): self
     {
         /** @var string $prefix */
@@ -38,7 +43,7 @@ final class ReindexConfig
         $from = self::getFrom($input);
         $to = self::getTo($input);
 
-        return new self(
+        return self::create(
             $prefix,
             $from,
             $to,
