@@ -14,7 +14,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 /**
  * @internal
- * @covers \Basster\Reindexr\Input\ReindexConfig
  */
 final class ReindexConfigTest extends TestCase
 {

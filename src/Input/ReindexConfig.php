@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
  *
  * @psalm-immutable
  */
-final class ReindexConfig
+final class ReindexConfig implements \JsonSerializable
 {
     public string $prefix;
     public PartitionType $from;
@@ -49,6 +49,16 @@ final class ReindexConfig
             $to,
             (bool) $input->getOption('include-current')
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'prefix' => $this->prefix,
+            'from' => (string) $this->from,
+            'to' => (string) $this->to,
+            'include-current' => $this->includeCurrent,
+        ];
     }
 
     private static function getFrom(InputInterface $input): PartitionType

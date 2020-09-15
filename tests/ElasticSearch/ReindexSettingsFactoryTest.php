@@ -15,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \Basster\Reindexr\ElasticSearch\ReindexSettingsFactory
  */
 final class ReindexSettingsFactoryTest extends TestCase
 {

@@ -5,13 +5,18 @@ namespace Basster\Reindexr\Tests\ElasticSearch\Handler;
 
 use Basster\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
+use Basster\Reindexr\ElasticSearch\ReindexSettings;
+use Basster\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
+use Basster\Reindexr\Input\ReindexConfig;
+use Basster\Reindexr\PartitionType;
 use Elastica\Index;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal
- * @covers \Basster\Reindexr\ElasticSearch\Handler\CloseIndicesHandler
  */
 final class CloseIndicesHandlerTest extends TestCase
 {
@@ -27,7 +32,22 @@ final class CloseIndicesHandlerTest extends TestCase
         $indices = IndexCollection::createEmpty();
         $indices->add($index->reveal());
 
-        $handler = new CloseIndicesHandler();
+        $reindexConfig = ReindexConfig::create('foo', PartitionType::DAILY(), PartitionType::MONTHLY());
+        $dispatcher = $this->prophesize(EventDispatcherInterface::class);
+        $settingsFactory = $this->prophesize(ReindexSettingsFactoryInterface::class);
+
+        $settingsFactory->generateSettings($indices, $reindexConfig)
+            ->shouldBeCalled()
+            ->willYield([ReindexSettings::create($indices, 'foo-2020')])
+        ;
+
+        $dispatcher->dispatch(Argument::any())
+            ->shouldBeCalled()
+            ->willReturnArgument(0)
+        ;
+
+        $handler = new CloseIndicesHandler($settingsFactory->reveal(), $dispatcher->reveal());
+        $handler->setConfig($reindexConfig);
         $handler->handle($indices);
 
         $index->close()->shouldHaveBeenCalled();

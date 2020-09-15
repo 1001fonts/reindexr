@@ -6,8 +6,9 @@ namespace Basster\Reindexr\ElasticSearch\Handler;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
 use Basster\Reindexr\ElasticSearch\NewIndicesManager;
 use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\ElasticSearch\ReindexSettingsFactory;
+use Basster\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
 use Elastica\Index;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class CreateTargetIndexHandler.
@@ -16,9 +17,9 @@ final class CreateTargetIndexHandler extends AbstractIndicesHandler
 {
     private NewIndicesManager $indicesManager;
 
-    public function __construct(ReindexSettingsFactory $settingsFactory, NewIndicesManager $indicesManager)
+    public function __construct(ReindexSettingsFactoryInterface $settingsFactory, EventDispatcherInterface $eventDispatcher, NewIndicesManager $indicesManager)
     {
-        parent::__construct($settingsFactory);
+        parent::__construct($settingsFactory, $eventDispatcher);
         $this->indicesManager = $indicesManager;
     }
 

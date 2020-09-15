@@ -6,6 +6,7 @@ namespace Basster\Reindexr\Command;
 use Basster\Reindexr\ElasticSearch\ClientFactory;
 use Basster\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
+use Basster\Reindexr\Event\ConfigReceivedEvent;
 use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
 use Symfony\Component\Console\Command\Command;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class ReindexCommand.
@@ -24,18 +26,21 @@ final class ReindexCommand extends Command
     private ClientFactory $clientFactory;
     private array $handlers;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     /**
      * ReindexCommand constructor.
      *
      * @param AbstractIndicesHandler[] $handlers
      * @psalm-param array<int, AbstractIndicesHandler> $handlers
      */
-    public function __construct(ClientFactory $clientFactory, array $handlers)
+    public function __construct(ClientFactory $clientFactory, EventDispatcherInterface $eventDispatcher, array $handlers)
     {
         parent::__construct();
 
         $this->clientFactory = $clientFactory;
         $this->handlers = $handlers;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     protected function configure(): void
@@ -55,6 +60,8 @@ final class ReindexCommand extends Command
     {
         $client = $this->createESClient($input);
         $config = ReindexConfig::createFromInput($input);
+
+        $this->eventDispatcher->dispatch(ConfigReceivedEvent::create($config));
 
         $chain = null;
         foreach ($this->handlers as $index => $handler) {

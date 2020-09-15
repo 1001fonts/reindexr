@@ -6,9 +6,10 @@ namespace Basster\Reindexr\ElasticSearch\Handler;
 use Basster\Reindexr\ElasticSearch\Exception\MissingClientException;
 use Basster\Reindexr\ElasticSearch\Exception\MissingConfigException;
 use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\ReindexSettingsFactory;
+use Basster\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
 use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class AbstractIndicesHandler.
@@ -18,11 +19,13 @@ abstract class AbstractIndicesHandler implements IndicesHandler
     private ?Client $client = null;
     private ?IndicesHandler $nextHandler = null;
     private ?ReindexConfig $reindexConfig = null;
-    private ReindexSettingsFactory $settingsFactory;
+    private ReindexSettingsFactoryInterface $settingsFactory;
+    private EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(ReindexSettingsFactory $settingsFactory)
+    public function __construct(ReindexSettingsFactoryInterface $settingsFactory, EventDispatcherInterface $eventDispatcher)
     {
         $this->settingsFactory = $settingsFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function setConfig(ReindexConfig $reindexConfig): void
@@ -67,6 +70,11 @@ abstract class AbstractIndicesHandler implements IndicesHandler
         }
 
         return $this->reindexConfig;
+    }
+
+    protected function dispatchEvent(object $event): object
+    {
+        return $this->eventDispatcher->dispatch($event);
     }
 
     protected function getReindexSettings(IndexCollection $indices): \Generator

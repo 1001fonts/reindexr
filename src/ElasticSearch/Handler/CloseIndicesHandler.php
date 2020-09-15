@@ -5,6 +5,7 @@ namespace Basster\Reindexr\ElasticSearch\Handler;
 
 use Basster\Reindexr\ElasticSearch\IndexCollection;
 use Basster\Reindexr\ElasticSearch\ReindexSettings;
+use Basster\Reindexr\Event\IndexClosedEvent;
 use Elastica\Index;
 
 /**
@@ -18,10 +19,16 @@ final class CloseIndicesHandler extends AbstractIndicesHandler
         foreach ($this->getReindexSettings($indices) as $setting) {
             /** @var Index $index */
             foreach ($setting->sourceIndices as $index) {
-                $index->close();
+                $this->closeIndex($index);
             }
         }
 
         return parent::handle($indices);
+    }
+
+    private function closeIndex(Index $index): void
+    {
+        $index->close();
+        $this->dispatchEvent(IndexClosedEvent::create($index));
     }
 }

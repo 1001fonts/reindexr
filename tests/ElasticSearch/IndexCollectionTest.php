@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class IndexCollectionTest.
  *
- * @covers \Basster\Reindexr\ElasticSearch\IndexCollection
- *
  * @internal
  */
 final class IndexCollectionTest extends TestCase

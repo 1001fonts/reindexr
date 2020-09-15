@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Criteria;
 /**
  * Class ReindexSettingsFactory.
  */
-final class ReindexSettingsFactory
+final class ReindexSettingsFactory implements ReindexSettingsFactoryInterface
 {
     /**
      * @return \Generator<ReindexSettings>
