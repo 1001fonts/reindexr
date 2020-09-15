@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\Exception\MissingClientException;
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
+use Maxfonts\Reindexr\ElasticSearch\Exception\MissingClientException;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\Input\ReindexConfig;
 
 /**
  * Class ElasticsearchCommand.

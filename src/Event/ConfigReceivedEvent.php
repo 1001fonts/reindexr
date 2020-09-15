@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Event;
+namespace Maxfonts\Reindexr\Event;
 
-use Basster\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\Input\ReindexConfig;
 
 /**
  * Class ConfigReceivedEvent.

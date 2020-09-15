@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Event;
+namespace Maxfonts\Reindexr\Event;
 
 /**
  * Class TargetIndexCreatedEvent.

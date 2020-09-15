@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch;
+namespace Maxfonts\Reindexr\ElasticSearch;
 
-use Basster\Reindexr\Event\TargetIndexCreatedEvent;
-use Basster\Reindexr\Event\TargetIndexRollbackEvent;
 use Elastica\Index;
+use Maxfonts\Reindexr\Event\TargetIndexCreatedEvent;
+use Maxfonts\Reindexr\Event\TargetIndexRollbackEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

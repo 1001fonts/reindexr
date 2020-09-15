@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\IndexSettings;
+use Maxfonts\Reindexr\ElasticSearch\IndexSettings;
 use PHPUnit\Framework\TestCase;
 
 /**

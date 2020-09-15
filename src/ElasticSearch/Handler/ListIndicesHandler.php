@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\Event\IndicesLoadedEvent;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\Event\IndicesLoadedEvent;
 
 /**
  * Class ListIndicesCommand.

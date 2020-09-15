@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\NewIndicesManager;
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
 use Elastica\Index;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\ElasticSearch\NewIndicesManager;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

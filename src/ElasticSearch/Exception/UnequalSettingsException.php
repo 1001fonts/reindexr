@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch\Exception;
+namespace Maxfonts\Reindexr\ElasticSearch\Exception;
 
 /**
  * Class UnequalSettingsException.

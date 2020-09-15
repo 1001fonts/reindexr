@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\Exception\NoIndicesFoundException;
-use Basster\Reindexr\ElasticSearch\IndexCollection;
 use Elastica\Client;
 use Elastica\Response;
+use Maxfonts\Reindexr\ElasticSearch\Exception\NoIndicesFoundException;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
 use PHPUnit\Framework\TestCase;
 
 /**

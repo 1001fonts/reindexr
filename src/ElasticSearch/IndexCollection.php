@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch;
+namespace Maxfonts\Reindexr\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\Exception\NoIndicesFoundException;
-use Basster\Reindexr\ElasticSearch\Exception\UnequalAliasesException;
-use Basster\Reindexr\ElasticSearch\Exception\UnequalMappingsException;
-use Basster\Reindexr\ElasticSearch\Exception\UnequalSettingsException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Elastica\Client;
 use Elastica\Index;
 use Elastica\Response;
+use Maxfonts\Reindexr\ElasticSearch\Exception\NoIndicesFoundException;
+use Maxfonts\Reindexr\ElasticSearch\Exception\UnequalAliasesException;
+use Maxfonts\Reindexr\ElasticSearch\Exception\UnequalMappingsException;
+use Maxfonts\Reindexr\ElasticSearch\Exception\UnequalSettingsException;
 
 /**
  * Class IndexCollection.

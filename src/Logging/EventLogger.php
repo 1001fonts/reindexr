@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Logging;
+namespace Maxfonts\Reindexr\Logging;
 
-use Basster\Reindexr\Event\ConfigReceivedEvent;
-use Basster\Reindexr\Event\IndexClosedEvent;
-use Basster\Reindexr\Event\IndicesLoadedEvent;
-use Basster\Reindexr\Event\ReindexEvent;
-use Basster\Reindexr\Event\TargetIndexCreatedEvent;
-use Basster\Reindexr\Event\TargetIndexRollbackEvent;
+use Maxfonts\Reindexr\Event\ConfigReceivedEvent;
+use Maxfonts\Reindexr\Event\IndexClosedEvent;
+use Maxfonts\Reindexr\Event\IndicesLoadedEvent;
+use Maxfonts\Reindexr\Event\ReindexEvent;
+use Maxfonts\Reindexr\Event\TargetIndexCreatedEvent;
+use Maxfonts\Reindexr\Event\TargetIndexRollbackEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

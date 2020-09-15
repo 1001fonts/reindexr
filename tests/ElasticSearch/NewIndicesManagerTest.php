@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\NewIndicesManager;
-use Basster\Reindexr\Event\TargetIndexCreatedEvent;
-use Basster\Reindexr\Event\TargetIndexRollbackEvent;
 use Elastica\Index;
+use Maxfonts\Reindexr\ElasticSearch\NewIndicesManager;
+use Maxfonts\Reindexr\Event\TargetIndexCreatedEvent;
+use Maxfonts\Reindexr\Event\TargetIndexRollbackEvent;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;

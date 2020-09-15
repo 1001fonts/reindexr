@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\Logging;
+namespace Maxfonts\Reindexr\Tests\Logging;
 
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\Event\ConfigReceivedEvent;
-use Basster\Reindexr\Event\IndexClosedEvent;
-use Basster\Reindexr\Event\IndicesLoadedEvent;
-use Basster\Reindexr\Event\ReindexEvent;
-use Basster\Reindexr\Event\TargetIndexCreatedEvent;
-use Basster\Reindexr\Event\TargetIndexRollbackEvent;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\Logging\EventLogger;
-use Basster\Reindexr\PartitionType;
 use Elastica\Index;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\Event\ConfigReceivedEvent;
+use Maxfonts\Reindexr\Event\IndexClosedEvent;
+use Maxfonts\Reindexr\Event\IndicesLoadedEvent;
+use Maxfonts\Reindexr\Event\ReindexEvent;
+use Maxfonts\Reindexr\Event\TargetIndexCreatedEvent;
+use Maxfonts\Reindexr\Event\TargetIndexRollbackEvent;
+use Maxfonts\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\Logging\EventLogger;
+use Maxfonts\Reindexr\PartitionType;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerInterface;
