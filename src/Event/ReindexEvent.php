@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Event;
+namespace Maxfonts\Reindexr\Event;
 
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
 
 /**
  * Class ReindexEvent.

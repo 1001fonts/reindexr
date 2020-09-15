@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Input\Exception;
+namespace Maxfonts\Reindexr\Input\Exception;
 
 use Throwable;
 

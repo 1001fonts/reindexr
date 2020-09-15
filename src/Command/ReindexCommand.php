@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Command;
+namespace Maxfonts\Reindexr\Command;
 
-use Basster\Reindexr\ElasticSearch\ClientFactory;
-use Basster\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\Event\ConfigReceivedEvent;
-use Basster\Reindexr\Input\ReindexConfig;
 use Elastica\Client;
+use Maxfonts\Reindexr\ElasticSearch\ClientFactory;
+use Maxfonts\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\Event\ConfigReceivedEvent;
+use Maxfonts\Reindexr\Input\ReindexConfig;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\Input;
+namespace Maxfonts\Reindexr\Tests\Input;
 
-use Basster\Reindexr\Input\Exception\InvalidPartitionTypeException;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\PartitionType;
+use Maxfonts\Reindexr\Input\Exception\InvalidPartitionTypeException;
+use Maxfonts\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\PartitionType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;

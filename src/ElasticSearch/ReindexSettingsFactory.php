@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch;
+namespace Maxfonts\Reindexr\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\Exception\UnsupportedIndexException;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\PartitionType;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidFormatException;
 use Doctrine\Common\Collections\Criteria;
+use Maxfonts\Reindexr\ElasticSearch\Exception\UnsupportedIndexException;
+use Maxfonts\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\PartitionType;
 
 /**
  * Class ReindexSettingsFactory.

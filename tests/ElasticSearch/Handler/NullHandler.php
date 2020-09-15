@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
+use Maxfonts\Reindexr\ElasticSearch\Handler\AbstractIndicesHandler;
 
 /**
  * Class NullHandler.

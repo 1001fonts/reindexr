@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch;
 
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\ElasticSearch\ReindexSettingsFactory;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\PartitionType;
 use Carbon\Carbon;
 use Elastica\Client;
 use Elastica\Index;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettingsFactory;
+use Maxfonts\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\PartitionType;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -1,5 +1,5 @@
 {
-    "name": "basster/reindexr",
+    "name": "maxfonts/reindexr",
     "description": "A CLI tool to repartition elasticsearch indices",
     "type": "project",
     "require": {
@@ -31,12 +31,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Basster\\Reindexr\\": "src"
+            "Maxfonts\\Reindexr\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Basster\\Reindexr\\Tests\\": "tests"
+            "Maxfonts\\Reindexr\\Tests\\": "tests"
         }
     },
     "config": {

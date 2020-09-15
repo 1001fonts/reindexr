@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr;
+namespace Maxfonts\Reindexr;
 
-use Basster\Reindexr\Command\ReindexCommand;
-use Basster\Reindexr\ElasticSearch\ClientFactory;
-use Basster\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
-use Basster\Reindexr\ElasticSearch\Handler\CreateTargetIndexHandler;
-use Basster\Reindexr\ElasticSearch\Handler\ListIndicesHandler;
-use Basster\Reindexr\ElasticSearch\Handler\ReindexHandler;
-use Basster\Reindexr\ElasticSearch\NewIndicesManager;
-use Basster\Reindexr\Logging\EventLogger;
 use DI\ContainerBuilder;
+use Maxfonts\Reindexr\Command\ReindexCommand;
+use Maxfonts\Reindexr\ElasticSearch\ClientFactory;
+use Maxfonts\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
+use Maxfonts\Reindexr\ElasticSearch\Handler\CreateTargetIndexHandler;
+use Maxfonts\Reindexr\ElasticSearch\Handler\ListIndicesHandler;
+use Maxfonts\Reindexr\ElasticSearch\Handler\ReindexHandler;
+use Maxfonts\Reindexr\ElasticSearch\NewIndicesManager;
+use Maxfonts\Reindexr\Logging\EventLogger;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr;
+namespace Maxfonts\Reindexr;
 
 use MyCLabs\Enum\Enum;
 

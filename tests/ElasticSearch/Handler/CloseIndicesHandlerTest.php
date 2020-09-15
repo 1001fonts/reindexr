@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Tests\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\Tests\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
-use Basster\Reindexr\Input\ReindexConfig;
-use Basster\Reindexr\PartitionType;
 use Elastica\Index;
+use Maxfonts\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
+use Maxfonts\Reindexr\Input\ReindexConfig;
+use Maxfonts\Reindexr\PartitionType;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\Input;
+namespace Maxfonts\Reindexr\Input;
 
-use Basster\Reindexr\Input\Exception\InvalidPartitionTypeException;
-use Basster\Reindexr\Input\Exception\UnsupportedPartitionTypeException;
-use Basster\Reindexr\PartitionType;
+use Maxfonts\Reindexr\Input\Exception\InvalidPartitionTypeException;
+use Maxfonts\Reindexr\Input\Exception\UnsupportedPartitionTypeException;
+use Maxfonts\Reindexr\PartitionType;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**

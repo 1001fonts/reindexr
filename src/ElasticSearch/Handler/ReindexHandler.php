@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Basster\Reindexr\ElasticSearch\Handler;
+namespace Maxfonts\Reindexr\ElasticSearch\Handler;
 
-use Basster\Reindexr\ElasticSearch\IndexCollection;
-use Basster\Reindexr\ElasticSearch\ReindexSettings;
-use Basster\Reindexr\Event\ReindexEvent;
 use Elastica\Request;
+use Maxfonts\Reindexr\ElasticSearch\IndexCollection;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettings;
+use Maxfonts\Reindexr\Event\ReindexEvent;
 
 /**
  * Class ReindexHandler.
