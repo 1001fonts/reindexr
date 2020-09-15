@@ -35,16 +35,7 @@ final class Reindexr extends Application
         $this->buildContainer();
         $this->add($this->container->get(ReindexCommand::class));
         $this->setDefaultCommand(ReindexCommand::NAME);
-        $eventDispatcher = $this->container->get(EventDispatcherInterface::class);
-        $this->setDispatcher($eventDispatcher);
-
-        $eventDispatcher->addListener(
-            ConsoleEvents::ERROR,
-            fn () => $this->container->get(NewIndicesManager::class)->rollback()
-        );
-        $eventDispatcher->addSubscriber(
-            $this->container->get(EventLogger::class)
-        );
+        $this->initEventDispatcher();
     }
 
     private function buildContainer(): void
@@ -74,5 +65,22 @@ final class Reindexr extends Application
             }),
         ]);
         $this->container = $containerBuilder->build();
+    }
+
+    private function initEventDispatcher(): void
+    {
+        /**
+         * @psalm-var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+         */
+        $eventDispatcher = $this->container->get(EventDispatcherInterface::class);
+        $this->setDispatcher($eventDispatcher);
+
+        $eventDispatcher->addListener(
+            ConsoleEvents::ERROR,
+            fn () => $this->container->get(NewIndicesManager::class)->rollback()
+        );
+        $eventDispatcher->addSubscriber(
+            $this->container->get(EventLogger::class)
+        );
     }
 }

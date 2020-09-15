@@ -7,6 +7,8 @@ use Elastica\Index;
 
 /**
  * Class IndexEvent.
+ *
+ * @psalm-consistent-constructor
  */
 abstract class IndexEvent
 {
