@@ -47,6 +47,7 @@ final class ReindexCommand extends Command
             ->addArgument('to', InputArgument::REQUIRED, 'to which partition type to convert (monthly|yearly)')
             ->addOption('server', 's', InputOption::VALUE_REQUIRED, 'elasticsearch host', 'localhost')
             ->addOption('port', 'p', InputOption::VALUE_REQUIRED, 'elasticsearch port', '9200')
+            ->addOption('include-current', null, InputOption::VALUE_REQUIRED, 'when `--include-current=false` the current `to-format` (month|year) will be skipped', false)
         ;
     }
 
