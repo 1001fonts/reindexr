@@ -7,8 +7,8 @@ stages:
 variables:
   DOCKER_BUILDKIT: 1
   DOCKER_DRIVER: overlay2
-  IMAGE_TAG: "registry.gitlab.com/1001fonts/reindexr:V$CI_PIPELINE_IID"
-  LATEST_TAG: "registry.gitlab.com/1001fonts/reindexr:latest"
+  IMAGE_TAG: "1001fonts/reindexr:V$CI_PIPELINE_IID"
+  LATEST_TAG: "1001fonts/reindexr:latest"
 
 tests:
   stage: test
@@ -42,7 +42,7 @@ docker-build:
   services:
     - docker:dind
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
   script:
     - docker build --label "org.opencontainers.image.commit=$CI_COMMIT_SHORT_SHA" --label "org.opencontainers.image.build_number=$CI_PIPELINE_IID" -t $IMAGE_TAG -t $LATEST_TAG .
     - docker push $IMAGE_TAG
