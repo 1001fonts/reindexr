@@ -7,7 +7,8 @@ stages:
 variables:
   DOCKER_BUILDKIT: 1
   DOCKER_DRIVER: overlay2
-  IMAGE_TAG: "1001fonts/reindexr:V$CI_PIPELINE_IID"
+  APP_VERSION: "0.1"
+  IMAGE_TAG: "1001fonts/reindexr:$APP_VERSION.$CI_PIPELINE_IID"
   LATEST_TAG: "1001fonts/reindexr:latest"
 
 tests:
