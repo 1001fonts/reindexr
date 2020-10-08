@@ -5,12 +5,17 @@ namespace Maxfonts\Reindexr;
 
 use DI\ContainerBuilder;
 use Maxfonts\Reindexr\Command\ReindexCommand;
+use Maxfonts\Reindexr\ElasticSearch\Alias\AliasPurger;
+use Maxfonts\Reindexr\ElasticSearch\Alias\IndexAwarePurger;
+use Maxfonts\Reindexr\ElasticSearch\Alias\OnIndexClosePurgeAliasesSubscriber;
 use Maxfonts\Reindexr\ElasticSearch\ClientFactory;
 use Maxfonts\Reindexr\ElasticSearch\Handler\CloseIndicesHandler;
 use Maxfonts\Reindexr\ElasticSearch\Handler\CreateTargetIndexHandler;
 use Maxfonts\Reindexr\ElasticSearch\Handler\ListIndicesHandler;
 use Maxfonts\Reindexr\ElasticSearch\Handler\ReindexHandler;
 use Maxfonts\Reindexr\ElasticSearch\NewIndicesManager;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettingsFactory;
+use Maxfonts\Reindexr\ElasticSearch\ReindexSettingsFactoryInterface;
 use Maxfonts\Reindexr\Logging\EventLogger;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
@@ -63,6 +68,8 @@ final class Reindexr extends Application
 
                 return $logger;
             }),
+            ReindexSettingsFactoryInterface::class => \DI\create(ReindexSettingsFactory::class),
+            IndexAwarePurger::class => \DI\create(AliasPurger::class),
         ]);
         $this->container = $containerBuilder->build();
     }
@@ -77,10 +84,15 @@ final class Reindexr extends Application
 
         $eventDispatcher->addListener(
             ConsoleEvents::ERROR,
-            fn () => $this->container->get(NewIndicesManager::class)->rollback()
+            function (): void {
+                $this->container->get(NewIndicesManager::class)->rollback();
+            }
         );
         $eventDispatcher->addSubscriber(
             $this->container->get(EventLogger::class)
+        );
+        $eventDispatcher->addSubscriber(
+            $this->container->get(OnIndexClosePurgeAliasesSubscriber::class)
         );
     }
 }
