@@ -26,6 +26,7 @@ final class ReindexSettingsFactory implements ReindexSettingsFactoryInterface
         $maxDate = $this->initMaxDate($config);
         $lastTargetIndex = '';
         $targetCollection = IndexCollection::createEmpty();
+        $config = $config->withSanitizedPrefix();
 
         foreach ($collection as $indexName => $index) {
             // retrieve date part from index name

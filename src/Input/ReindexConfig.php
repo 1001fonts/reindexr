@@ -51,6 +51,14 @@ final class ReindexConfig implements \JsonSerializable
         );
     }
 
+    public function withSanitizedPrefix(): self
+    {
+        $clone = clone $this;
+        $clone->prefix = $this->sanitizePrefix($clone->prefix);
+
+        return $clone;
+    }
+
     public function jsonSerialize(): array
     {
         return [
@@ -99,5 +107,10 @@ final class ReindexConfig implements \JsonSerializable
         }
 
         return $partitionType;
+    }
+
+    private function sanitizePrefix(string $prefix): string
+    {
+        return (string) \preg_replace('/(\d{4}?)(-\d{2})?(-\d{2})?/', '', $prefix);
     }
 }
