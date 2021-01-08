@@ -26,6 +26,7 @@ final class ReindexSettingsFactory implements ReindexSettingsFactoryInterface
         $maxDate = $this->initMaxDate($config);
         $lastTargetIndex = '';
         $targetCollection = IndexCollection::createEmpty();
+        $config = $config->withSanitizedPrefix();
 
         foreach ($collection as $indexName => $index) {
             // retrieve date part from index name
@@ -113,8 +114,6 @@ final class ReindexSettingsFactory implements ReindexSettingsFactoryInterface
 
     private function indexDateToString(ReindexConfig $config, string $indexName): string
     {
-        $config->prefix = (string) \preg_replace('/(\d{4}?)(-\d{2})?(-\d{2})?/', '', $config->prefix);
-
         return \preg_replace("/{$config->prefix}/", '', $indexName);
     }
 

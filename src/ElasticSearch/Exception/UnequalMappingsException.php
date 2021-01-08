@@ -3,15 +3,13 @@ declare(strict_types=1);
 
 namespace Maxfonts\Reindexr\ElasticSearch\Exception;
 
-use Throwable;
-
 /**
  * Class UnequalMappingsException.
  */
 final class UnequalMappingsException extends UnequalMetadataException
 {
-    public function __construct(string $index, Throwable $previous = null)
+    protected function getMetadataType(): string
     {
-        parent::__construct($index, 'mappings', $previous);
+        return 'mappings';
     }
 }

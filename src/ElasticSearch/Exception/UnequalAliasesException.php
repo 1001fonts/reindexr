@@ -8,8 +8,8 @@ namespace Maxfonts\Reindexr\ElasticSearch\Exception;
  */
 final class UnequalAliasesException extends UnequalMetadataException
 {
-    public function __construct(string $index, \Throwable $previous = null)
+    protected function getMetadataType(): string
     {
-        parent::__construct($index, 'settings', $previous);
+        return 'aliases';
     }
 }

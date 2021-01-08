@@ -55,8 +55,9 @@ final class IndexCollection extends ArrayCollection
         $mapping = $this->first()->getMapping();
         /** @var Index $index */
         foreach ($this as $index) {
-            if (!$this->arrayEquals($mapping, $index->getMapping())) {
-                throw new UnequalMappingsException($index->getName());
+            $indexMapping = $index->getMapping();
+            if (!$this->arrayEquals($mapping, $indexMapping)) {
+                throw UnequalMappingsException::createWithContext($index->getName(), $mapping, $indexMapping);
             }
         }
 
@@ -72,8 +73,9 @@ final class IndexCollection extends ArrayCollection
 
         /** @var Index $index */
         foreach ($this as $index) {
-            if (!$settings->equals(IndexSettings::fromElasticaSettings($index->getSettings()))) {
-                throw new UnequalSettingsException($index->getName());
+            $indexSettings = IndexSettings::fromElasticaSettings($index->getSettings());
+            if (!$settings->equals($indexSettings)) {
+                throw UnequalSettingsException::createWithContext($index->getName(), $settings->asArray(), $indexSettings->asArray());
             }
         }
 
@@ -85,8 +87,9 @@ final class IndexCollection extends ArrayCollection
         $aliases = $this->first()->getAliases();
         /** @var Index $index */
         foreach ($this as $index) {
-            if (!$this->arrayEquals($aliases, $index->getAliases())) {
-                throw new UnequalAliasesException($index->getName());
+            $indexAliases = $index->getAliases();
+            if (!$this->arrayEquals($aliases, $indexAliases)) {
+                throw UnequalAliasesException::createWithContext($index->getName(), $aliases, $indexAliases);
             }
         }
 

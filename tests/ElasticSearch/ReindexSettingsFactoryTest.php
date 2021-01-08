@@ -112,6 +112,29 @@ final class ReindexSettingsFactoryTest extends TestCase
     /**
      * @test
      */
+    public function createReindexSettingsFor(): void
+    {
+        $config = ReindexConfig::create('1kf_activity_dev_2020-02', PartitionType::DAILY(), PartitionType::MONTHLY(), true);
+        $indexNames = [
+            '1kf_activity_dev_2020-02-27',
+            '1kf_activity_dev_2020-02-25',
+            '1kf_activity_dev_2020-02-17',
+            '1kf_activity_dev_2020-02-11',
+            '1kf_activity_dev_2020-02-04',
+            '1kf_activity_dev_2020-02-03',
+        ];
+        $collection = $this->createIndexCollection($indexNames);
+
+        $settingsGenerator = $this->settingsFactory->generateSettings($collection, $config);
+
+        $currentMonthSettings = $settingsGenerator->current();
+        self::assertSame('1kf_activity_dev_2020-02', $currentMonthSettings->toIndex);
+        self::assertSame($indexNames, $currentMonthSettings->sourceIndices->getKeys());
+    }
+
+    /**
+     * @test
+     */
     public function createReindexSettingsForMonthlyToYearly(): void
     {
         $config = ReindexConfig::create('foobar_', PartitionType::MONTHLY(), PartitionType::YEARLY(), true);
