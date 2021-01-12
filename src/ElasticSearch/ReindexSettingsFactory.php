@@ -86,6 +86,7 @@ final class ReindexSettingsFactory implements ReindexSettingsFactoryInterface
      */
     private function createIndexDate(ReindexConfig $config, string $dateStr): CarbonInterface
     {
+        $dateStr = \trim($dateStr, '-_');
         if ($config->from->equals(PartitionType::DAILY())) {
             return Carbon::createFromFormat('Y-m-d', $dateStr);
         }

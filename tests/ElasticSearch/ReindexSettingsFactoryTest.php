@@ -156,6 +156,35 @@ final class ReindexSettingsFactoryTest extends TestCase
         self::assertSame('foobar_2018', $settings->toIndex);
     }
 
+    /**
+     * @test
+     */
+    public function createReindexSettingsForMonthlyToYearlyWithOnlyOneIndexPerTarget(): void
+    {
+        $config = ReindexConfig::create('1kf_download_prod', PartitionType::MONTHLY(), PartitionType::YEARLY(), true);
+        $indices = [
+            '1kf_download_prod_2016-03',
+            '1kf_download_prod_2020-07',
+        ];
+
+        $collection = $this->createIndexCollection($indices);
+
+        $generator = $this->settingsFactory->generateSettings($collection, $config);
+        /** @var ReindexSettings $settings */
+        $settings = $generator->current();
+
+        self::assertCount(1, $settings->sourceIndices);
+        self::assertSame('1kf_download_prod_2020', $settings->toIndex);
+
+        $generator->next();
+
+        /** @var ReindexSettings $settings */
+        $settings = $generator->current();
+
+        self::assertCount(1, $settings->sourceIndices);
+        self::assertSame('1kf_download_prod_2016', $settings->toIndex);
+    }
+
     private function createIndexCollection(array $indexNames = []): IndexCollection
     {
         $indexNames = $indexNames ?: $this->indexNames;
