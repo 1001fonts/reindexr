@@ -9,6 +9,8 @@ services:
       context: .
     networks:
       - reindexr
+    volumes:
+      - .:/app
   
   elasticsearch:
     image: elasticsearch:6.8.16
