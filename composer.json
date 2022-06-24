@@ -2,6 +2,12 @@
     "name": "maxfonts/reindexr",
     "description": "A CLI tool to repartition elasticsearch indices",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Basster/codeception-module-elasticsearch"
+        }
+    ],
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
@@ -16,11 +22,13 @@
         "symfony/event-dispatcher": "^5.1"
     },
     "require-dev": {
+        "codeception/codeception": "^4.2",
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.3",
         "psalm/phar": "^3.15",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-latest",
+        "subsan/codeception-module-elasticsearch": "dev-master"
     },
     "license": "MIT",
     "authors": [
