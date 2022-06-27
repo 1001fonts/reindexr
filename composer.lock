@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b4c58b3435a7992a5a99abb8b6bbc0a",
+    "content-hash": "d5ca59d0808b2c7dc44487de27329bc0",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -5175,13 +5175,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Basster/codeception-module-elasticsearch.git",
-                "reference": "0c0e56d6d414016a9d3c757c467b721da272ba32"
+                "url": "https://github.com/subsan/codeception-module-elasticsearch.git",
+                "reference": "0d1bf0d7225feb754bd7a11fbc1cf16e5fe408e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Basster/codeception-module-elasticsearch/zipball/0c0e56d6d414016a9d3c757c467b721da272ba32",
-                "reference": "0c0e56d6d414016a9d3c757c467b721da272ba32",
+                "url": "https://api.github.com/repos/subsan/codeception-module-elasticsearch/zipball/0d1bf0d7225feb754bd7a11fbc1cf16e5fe408e4",
+                "reference": "0d1bf0d7225feb754bd7a11fbc1cf16e5fe408e4",
                 "shasum": ""
             },
             "require": {
@@ -5196,6 +5196,7 @@
                     "Codeception\\Module\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -5212,9 +5213,10 @@
                 "elasticsearch"
             ],
             "support": {
-                "source": "https://github.com/Basster/codeception-module-elasticsearch/tree/master"
+                "issues": "https://github.com/subsan/codeception-module-elasticsearch/issues",
+                "source": "https://github.com/subsan/codeception-module-elasticsearch/tree/master"
             },
-            "time": "2022-06-24T14:21:16+00:00"
+            "time": "2022-06-25T20:25:35+00:00"
         },
         {
             "name": "symfony/css-selector",

@@ -2,12 +2,6 @@
     "name": "maxfonts/reindexr",
     "description": "A CLI tool to repartition elasticsearch indices",
     "type": "project",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Basster/codeception-module-elasticsearch"
-        }
-    ],
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
