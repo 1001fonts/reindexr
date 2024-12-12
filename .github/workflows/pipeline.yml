@@ -1,16 +1,11 @@
-name: Docker
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+name: reindexr pipeline 
 
 on:
-  workflow_run:
-    workflows: [ "PHP test and static analysis" ]
-    branches: [ "main", "feature/**" ]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -18,11 +13,44 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
+permissions:
+  contents: read
+
 jobs:
-  build:
+  test-and-analyse:
 
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
+
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
+
+    - name: Run test suite
+      run: vendor/bin/phpunit --coverage-text  --log-junit junit.xml
+
+    - name: psalm
+      run: php vendor/bin/psalm.phar
+  docker-build:
+
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'feature/github-actions'
     permissions:
       contents: read
       packages: write
