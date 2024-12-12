@@ -14,7 +14,7 @@ docker run --rm -it 1001fonts/reindexr <prefix> <from-format> <to-format> --serv
 
 ### PHP
 
-* Clone via `git clone git@gitlab.com:1001fonts/reindexr.git`
+* Clone via `git clone git@github.com:1001fonts/reindexr.git`
 * Install dependencies with [composer](https://getcomposer.org/) `composer install`
 * Run reindexr via `bin/reindexr <prefix> <from-format> <to-format> --server=localhost --port=9200 --include-current=false`
 
@@ -44,4 +44,3 @@ docker run --rm -it 1001fonts/reindexr <prefix> <from-format> <to-format> --serv
         # will reindex all monthly indices < 01.01.2020 into their yearly counterparts [<prefix>2019-(01-12) -> <prefix>2019]
         ## skips the current year! ##        
         ```
-        
