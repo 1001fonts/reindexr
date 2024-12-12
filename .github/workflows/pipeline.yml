@@ -13,13 +13,12 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
-permissions:
-  contents: read
-
 jobs:
   test-and-analyse:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
     - uses: actions/checkout@v4
@@ -47,10 +46,10 @@ jobs:
 
     - name: psalm
       run: php vendor/bin/psalm.phar
+      
   docker-build:
 
     runs-on: ubuntu-latest
-    if: github.ref_name == 'feature/github-actions'
     permissions:
       contents: read
       packages: write
