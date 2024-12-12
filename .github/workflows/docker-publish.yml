@@ -8,7 +8,7 @@ name: Docker
 on:
   workflow_run:
     workflows: [ "PHP test and static analysis" ]
-    branches: [ "main", "feature\/github-actions" ]
+    branches: [ "main", "feature/**" ]
     types:
       - completed
 
