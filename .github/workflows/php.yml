@@ -3,6 +3,7 @@ name: PHP test and static analysis
 on:
   push:
     branches: [ "main" ]
+    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -10,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test-and-analyse:
 
     runs-on: ubuntu-latest
 
