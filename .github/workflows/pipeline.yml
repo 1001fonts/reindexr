@@ -23,6 +23,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        extensions: json, mbstring
+        coverage: xdebug
+
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
@@ -31,12 +38,12 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-7.4-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-
+          ${{ runner.os }}-php-7.4-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ignore-platform-reqs
+      run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
