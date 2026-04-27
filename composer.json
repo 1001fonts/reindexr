@@ -3,7 +3,7 @@
     "description": "A CLI tool to repartition elasticsearch indices",
     "type": "project",
     "require": {
-        "php": ">=7.4",
+        "php": "^7.4",
         "ext-json": "*",
         "ext-mbstring": "*",
         "doctrine/collections": "^1.6",

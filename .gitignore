@@ -4,3 +4,4 @@
 /.php_cs.cache
 /junit.xml
 /docker-compose.override.yaml
+.idea
